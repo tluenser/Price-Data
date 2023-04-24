@@ -1,0 +1,97 @@
+\section{Discussion and Conclusion}
+\label{conclusion}
+
+%\noindent{Paragraph 1 (Problem/Approach)} \\
+
+
+\brendan{Accurate price data is crucial for comparing economic capacities between countries with different exchange rates via price indices, but this data is not easily obtainable and often requires methods to supplement missing data. The process of gathering price data typically involves a significant amount of manual data collection through inflation indices and scanner data. Data sets collected via these means can lead to measurement errors and biases due to imputation methods used to fill in price gaps. This issue, as presented by \citep{Cavallo2015}, is addressed by using online data sources to increase the accuracy in measuring price stickiness and creating price indices. Moreover, online price data allows researchers to create insight on current price data, as opposed to price data that has potentially already become obsolete. Using these methods, researchers can create customized data sets to more effectively analyze price stickiness across products, sectors, and countries. \citep{Cavallo2015} emphasized that previous empirical studies using common indices often include imputed prices as substitutes for temporarily missing products. By collecting online data through SerpAPI and analyzing the resulting distributions, we find that using online data to measure price stickiness yields a bimodal distribution that differs from the scanner data distribution. We argue this is due to our API collected data being free of imputation methods or averaging that would otherwise cause price change estimates from the tails to be moved towards the center of the distribution curve.  In the short run however, we see a more unimodal distribution. This may be the case that prices are more resistant to change in the short run, as firms can incur expenses when changing prices(menu costs).} 
+
+
+%\noindent{Paragraph 2 (Summarize Results)} 
+\brendan{The results from \citep{Cavallo2015} indicated that previous literature on price stickiness used scanner and CPI data to fill out missing data points. In this paper, we used online daily price data from a large retailer accessed from Google's serpAPI platform to run search-query terms and collect weekly product prices from Walmart. We study the magnitude of price changes to compare the resulting price data distribution to that from \citep{Cavallo2015}. We implemented R and Python scripts to parse and sort the scraped observations and create graphical representations. Overall, our findings suggest that data collection methodologies stemming from online data as opposed to scanners can increase the accuracy of price stickiness analyses - online data is stickier than scanner data, and prices are stickier in the short run than long run. Compared to the data sourced from scanners, the online data yields a distribution that more closely resembles a bimodal distribution of price changes. Examining the beginning of our data collection, we find there to be a more unimodal distribution that is potentially due firms resisting price changes.  As a result, our method suggests that data from online sources such as APIs can reasonably be used in international price indices to compare baskets of goods and purchasing power parities.} 
+
+
+%\noindent{Paragraph 3 (Caveats/Limitations)} 
+\brendan{Compared to \citep{Cavallo2015}, our model did not have access to scanner data.} 
+\trevor{In addition, our data lacks the scope of time, daily observations, and total categories, all of which can be remedied with continuing work.  Broader limitations are the lack of information regarding product expenditures necessary to calculate price indices, as well as price data from other countries.  Although the data provide significant steps towards the calculation of indices that do not rely on expenditure data, we still seek data from foreign marketplaces such as Mercado Libre and Jumia.  Access to such market data would prove invaluable to future work on price measurement.} 
+
+
+%\noindent{Paragraph 4 (Future Work/Applications)} 
+\brendan{Our research poses several possibilities for future empirical studies regarding price stickiness in the monetary transmission mechanism. We found that using API data could feasibly improve the efficiency of estimating purchasing power parities. Through our research, we deduced that previous reports and literature underestimated price stickiness due to sampling measurement errors. However, our paper presents numerous avenues for future study, such as the effectiveness of daily online price data in informing policy makers on capital allocation decisions. With the ability to create accurate daily price indices, global markets would be able to be intently monitored constantly. }
+
+
+
+%\PVAS{\\Professor Vasilaky's Week 8 comments\\
+%THROUGHOUT THE PAPER:\\
+%- Replace API or SerpAPI with price data from a large online retailer (except in the data section. Do explain the Application Program Interface (API) in the data section). As a reader, I care about where the data are coming from. API doesn't tell me that, and many people don't know what API stands for or what it is. \\
+%- Everywhere where you say Cavallo's paper should be replaced with \citet{Cavallo2015}\\
+%- In general, try to replace PPP with more general terms like price indices throughout the paper. Previously, it seemed like we would get back to PPP, but that's not really the case, so when possible, do away with the specifics about PPP, I'm not asking you to add anything. Just try to lighten the discussion of PPP as an outcome of the paper, since it's not really an outcome of the paper anymore. But you can certainly relate the measurement of price changes back to price indices more generally (PPP, CPI, etc,). \\
+%ABSTRACT (150 words only). \\
+%The abstract goes far too deep into details.  The first sentence should state the problem you're studying regarding price stickiness or price measurement - namely capturing the degree and frequency with which prices for goods change. Tell us why this difficult to capture and why it matters?\\
+%- No need to mention the World Bank or the assignment they gave you. You're situating the larger problem at hand here. Think of this as an academic paper rather than a consultancy deliverable.\\ 
+%- In the second sentence should tell us how you will measure price stickiness.\\ 
+%- Your results should discuss how the distribution of price changes changes with the duration of your price data collection. That is interesting. How does that compare to Cavallo's online data results versus his scanner data results?\\
+%INTRODUCTION.\\
+%The introduction is thin as it stands.\\
+%First paragraph.The introductory sentence should state the global problem (not what the WB unit wants).\\ Why does measuring prices accurately matter? Why does price stickiness matter for estimating indices? What bearing do price indices have on decision making? Speak to the big overarching economic questions.\\
+% Edit this paragraph and the lit review and replace PPP with more general terms like "price indices," since your paper does not deal with PPP anymore. 
+%Second paragraph. In the second paragraph you should discuss what the specific issues are in collecting and measuring prices. You should look to the Cavallo paper for the past literature that has worked on this.\\
+%CONCLUSION. \\
+%Overall - try to avoid using terms and words that are not defined or don't add to your explanation of what you actually did. There are several instances of this,  and I've tried to point them out (e.g. computational imprecisions, microfoundations, etc. ) Avoid sentences (in particular, paragraph 4 could be removed or edited) that don't tell the reader anything new. \\
+%Again, you can generalize the discussion to price data and their importance in price indices (rather than PPP) since this paper does not go into PPP calculation.\\
+%Remove ICP World Bank. \\
+%Your conclusion should summarize the following:\\
+%-why price stickiness or measuring price\\ changes is important \\
+%-why it's difficult to measure\\
+%-what Cavallo did \\
+%-what you add to Cavallo's paper, which is to study how the distribution of price changes (stickiness) changes over time, and your explanation for why that distribution changes. That's interesting!\\
+%ABSTRACT 16/20\\
+%INTRODUCTION 15/20\\
+%CONCLUSION 18/20
+%}
+
+
+
+
+
+
+\section{Total Attributions:}
+\subsection{Literature Attribution:}
+\begin{itemize}
+    \item \russell{Russell M.} wrote paragraph one, part of paragraph two and edited/revised the review.
+    \item \brendan{Brendan H.} wrote part of paragraph two and made revisions.
+    \item \ian{Ian D.} wrote paragraphs 4-5 in red.
+    \item \trevor{Trevor L.} wrote paragraphs 3 through 7, colored deep blue with the "trevor{}" command
+\end{itemize}
+
+\subsection{Data Attribution:}
+\begin{itemize}
+   \item \ian{Ian} D wrote the sections on Who/What does your data represent, and How many observations. Also formatted and edited each paragraph.
+   \item \brendan{Brendan H} added details to the Biases sections and wrote revisions.
+   \item \russell{Russell M} wrote wrote the sections on where does the data come from, the potential harm of the data, and the implications of the biases.
+   \item \trevor{Trevor L} wrote the sections on Data Representation, Data Collection, and Biases, and drafted Tables 1 and 2.
+\end{itemize}
+
+\subsection{Problem and Solution Attribution:}
+\begin{itemize}
+   \item \ian{Ian} wrote the R code to extract price data.
+   \item \brendan{Brendan} wrote the main script from the original Cavallo script and contributed to sections in the first paragraph of the Problem Description section of the paper, and made revisions.
+   \item \trevor{Trevor} wrote the data collection codes, wrote the read me .txt file, wrote the variable information .txt file, wrote the collection and concatenation .txt file, added sections to the problems section, and added sections to the solutions section.
+   \item \russell{Russell} wrote the table 2 replication code, sections in the problem section, sections in our own solutions, and  sections in the replicated cavallo solutions 
+\end{itemize}
+
+\subsection{Results Attribution:}
+\begin{itemize}
+   \item \ian{Ian} Started the results section, organized the price data, and created Figure 2. 
+   \item \brendan{Brendan} Worked through the Cavallo code to replicate Figure 1. 
+   \item \trevor{Trevor} Worked on instructor's comments in the Problem section, wrote part of the Results section, continued collecting data, and worked on troubleshooting code and documentation.
+   \item \russell{russell} Worked on comments in the problem section and results section, created updated summary table in the results section (table 3, table 4), and wrote about table 3/4 in the results section.
+\end{itemize}
+
+\subsection{Remaining Attributions:}
+\begin{itemize}
+    \item \ian{Ian} edited and formatted R codes, wrote Introduction Draft, and worked on instructor edits
+    \item \brendan{Brendan} wrote Conclusion paragraphs 1, 2, and 4, ran replication data and code for \citep{Cavallo2015} and worked on instructor edits
+    \item \trevor{Trevor} finished Abstract and Introduction sections, edited and formatted python codes, wrote Conclusion paragraph 3, and worked on instructor comments and edits
+    \item \russell{Russell} edited and formatted tables, addressed data smoothing, worked on in-line instructor comments and edits, and performed final editing and quality control
+\end{itemize}

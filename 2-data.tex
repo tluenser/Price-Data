@@ -1,0 +1,122 @@
+\section{Data}
+\label{data}
+
+The data in "Scraped Data and Sticky Prices" \citep{Cavallo2015} are collected from the websites of 8 different large retailers from 5 different countries (Argentina, Chile, United States, Brazil, Colombia). Table~\ref{table:cavallo} describes the database of prices that \citet{Cavallo2015} uses for the US and the 4 other Latin-American countries studied. There are over 60 million daily price points that are used. Each of the 4 USA datasets represent prices from either a supermarket, convenience store, or electronics store. The datasets for the remaining countries all represent prices from a supermarket.  
+
+Observations in the data set are collected on a daily basis, each observation represents the price of a particular good given by the category indicators on a particular day. The fewest number of observations of any country is the 4 million from Colombian supermarkets while the largest is 11 million for USA department stores. The fewest number of unique products from any countries also belong to Colombia and USA department stores is 4 thousand and the largest number was 94 thousand.
+
+The \citet{Cavallo2015} data were collected via a program set to scrape prices at a set time daily.  A later version of this paper explains, generally, that several programs were used to scrape data at a set time, collating each observation as an individual product per day, parse the data into useful information, and store observations into a database in the format of one entry, per-product, per-day \citep{Cavallo2015}.  The products are given unique product IDs to reference and group over time, as well as product categories that can be used to analyze changes at the product-category level.  Our data are collected similarly, using Google's SerpAPI application, which aggregates prices from Google Shopping search results in 21 countries for 5 search-query parameters, and collects the first 20 entries, to 2,100 observations per day.  We also used the SerpAPI application to pull data from Walmart to collect price, title, product identifiers, and various metadata.  An abbreviated version of the code (offering a limited query parameter) uses 18 search-query strings, totalling approximately 675 observations per day.  An expanded version of the Walmart API uses 78 search-query strings to search for products, pulling approximately 3,000 observations per day.  Under ideal conditions we will run the API code for a considerable period of time to analyze long-term trends in the price data, how it compares across countries, and compare the results to both Cavallo's CPI stickiness results (which analyzed price-percentage-changes over time) and PPP estimates.
+
+
+\begin{table}[] \caption{API Data}
+\centering
+\begin{tabular}{lcc}
+\multicolumn{3}{l}
+
+                                                            \\ \hline
+                     & \multicolumn{1}{l}{Google Shopping} & \multicolumn{1}{l}{WalmartAPI (Abbreviated)} \\ \hline
+Queries^{a}              & 5                                                    & 18                                              \\
+Locations^{b}            & 21                                                   & 1                                               \\
+Observations (daily) & 2100                                                 & 677                                             \\ \hline
+\end{tabular}\\
+\scriptsize \trevor{^{a} \text{queries are strings acting as search-terms in the search-bar}}\\
+\scriptsize \trevor{^{b} \text{locations are strings used to reference a geographical server from which the search takes place}}
+\end{table}
+\label{table:scrape}
+
+There are eight unique data sets: USA1, USA2, USA3, USA4, Argentina, Brazil, Chile, and Colombia. USA1 contains 9 million daily price records for 24 thousand items from supermarkets in the US. USA2 contains 10 million price records for 94 thousand items from department stores in the US. USA3 contains 4 million price records for 22 thousand items in drugstores and convenience stores in the US. USA4 contains 5 million price records for 30 thousand items in electronics stores. The remaining data sets record price data for items in supermarkets exclusively. Argentina contains 11 million price records for 28 thousand items. Brazil contains 10 million price records for 22 thousand items. Chile contains 10 million price records for 24 thousand items. Colombia contains 4 million price records for 9 thousand items.
+
+
+\begin{table}
+\centering
+\scalebox{1}{
+  \begin{threeparttable}
+    \caption{Database Description (Table 2 of \citet{Cavallo2015})}
+     \begin{tabular}{llllll}
+        \toprule
+         & \( US \) & \( Argentina \) & \( Brazil \) & \( Chile \) & \( Columbia \) \\
+        \midrule
+Retailers                       & 4                                 & 1                             & 1                          & 1                         & 1                            \\
+Observations (millions)         & 28                                & 11                            & 10                         & 10                        & 4                            \\
+Products (thousands)            & 172                               & 28                            & 22                         & 24                        & 9                            \\
+Days                            & 865                               & 1,041                         & 1,026                      & 1,024                     & 992                          \\
+Initial Date                    & 03/08                             & 10/07                         & 10/07                      & 10/07                     & 11/07                        \\
+Final Date                      & 08/10                             & 08/10                         & 08/10                      & 08/10                     & 08/10                        \\
+Categories                      & 49                                & 74                            & 72                         & 72                        & 59                           \\
+URLs                            & 16,188                            & 993                           & 322                        & 292                       & 123                          \\
+Total missing observations (\%) & 37                              & 32                            & 26                         & 33                        & 22                           \\ \hline
+        \bottomrule
+     \end{tabular}
+     
+    \begin{tablenotes}
+      \small
+      \item Retailers: The number of retailers in each country from which price data was scraped
+      \item Observations: Total number of price observations
+      \item Products: Total number of unique items in the data
+      \item Days: Total number of days that data was scraped in each country
+      \item Initial Date: Initial date of price-data scraping
+      \item Final Date: Final date of price-data scraping
+      \item Categories: Total number of COICOP categories into which products fall
+      \item URLS: 
+      \item Total Missing Observations: Percent of observations that are missing price data
+    \end{tablenotes}
+  \end{threeparttable}
+  }
+\end{table}
+\label{table:cavallo}
+
+
+
+There are implicit biases associated with web-scraped data. \citet{Cavallo2015} specifically references three primary disadvantages of scraped data: a much smaller representation of product categories, sources being limited to large multi-channel retailers, and lack of information on quantities sold \citep{Cavallo2015}.  He also describes the second point as potentially falling victim to sampling bias.  For our own data, sampling bias represents a significant concern due to search-engine-optimization, paid advertising, and the weight given to product views and ratings.  
+
+Reporting bias and exclusion bias go hand-in-hand with the inability to collect data from local markets, small retailers, and other potential sellers whose data is not readily available compared to major online retailers. Only a limited number of countries have been represented in either \citet{Cavallo2015} or our own data.  In our own case, we are limited to countries that are available in Google's search API, and countries in which Walmart operates.  More generally, it will often be difficult to acquire data from nations such as Iran, North Korea, or Myanmar who restrict or sever access to digital marketplaces.
+
+As previously mentioned, excluding a large number of countries in our data sample may lead to biased price comparisons (caused by sampling bias) when extrapolating the web-scraping data collection methods to more countries and products. These potential biases may wane as purchasing habits across the world trend towards larger retailers and developing countries further digitalize. 
+
+There are likely to be some unavoidable consequences from using the \citet{Cavallo2015} data as the prices from the Latin American countries are all derived from supermarkets, and therefore only represent a basket of goods that can be bought at such a retailer. This resulting exclusion of a significant subset of goods and services provided by smaller (and potentially more regionally popular) retailers may lead to difficulty in arriving at accurate price comparisons.  Additionally, the \citet{Cavallo2015} paper  mentions that the majority of transactions are still handled offline in many countries, making online prices not a fully accurate depiction of what people are actually paying for goods in the respective countries. Moreover, residents of other countries likely have varying purchasing habits in terms of where they buy goods, raising potential room for concern caused by our focus of big name retailers. Our original data suffers the same potential for harm as it is limited to a necessarily small sample of goods and countries. 
+
+
+\vskip 10 pt
+
+
+%\PVAS{PROFESSOR VASILAKY'S COMMENTS WEEK 5 (29/30):
+%GOOD RE-WRITES. FIX THE TERMONOLOGY ON SCRAPING VERSUS APIS.}
+
+
+
+
+
+
+
+% \PVAS{PROFESSOR VASILAKY'S COMMENTS WEEK 4 (40/40):
+% DATA SECTION LOOKS GOOD. YOU CAN TAKE IT OUT OF BULLETED FORMAT. YOU'LL JUST NEED TO UPDATE THE TABLES AS YOU GET CLOSER TO WHAT YOUR ACTUAL DATA WILL LOOK LIKE. IT WOULD ALSO BE GOOD TO HAVE YOUR TABLE OF SCRAPED DATA BREAK QUERIES DOWN BY CATEGORY AND SEARCH TERM AND INCLUDE A COLUMN FOR DURATION }
+
+
+
+%Data Attribution\\
+%\begin{itemize}
+%\item Ian D wrote the sections on Who/What does your data represent, and How many observations. Also formatted and edited each paragraph.
+
+%\item Brendan H added details to the Biases sections and wrote revisions.
+
+%\item Russell M wrote wrote the sections on where does the data come from, the potential harm of the data, and the implications of the biases.
+
+%\item Trevor L wrote the sections on Data Representation, Data Collection, and Biases, and drafted Tables 1 and 2.
+%\end{itemize}
+
+%Data Section Instructor Comments (inline):\\
+%\begin{itemize}
+%    \item [\PVAS{DEFINE STICKINESS RESULTS. I DONT' THINK YOU CAN CALCULATE PPP}]  
+%    \item \PVAS{WHERE EACH ENTRY IS PER PRODUCT PER DAY}  
+%    \item \PVAS{OUR DATA ARE}  
+%    \item \PVAS{WHICH}  
+%    \item \PVAS{AND COLLECTS}  
+%    \item \PVAS{TO}   
+%    \item \PVAS{I THINK I'VE SAID THIS A FEW TIME ALREADY, BUT YOU ARE NOT SCRAPING DATA WHEN YOU USE AN API. PLEASE CHANGE THIS!}   
+%    \item \PVAS{PULL}   
+%    \item \PVAS{AGAIN, YOU ARE NOT RUNNING SCRAPING CODE}   
+%    \item \PVAS{DEFINE A QUERY, AND A LOCATION. IS ONE QUERY A SEARCH FOR ONE PRODUCT GIVEN A LOCATION? }  
+%    \item \PVAS{LABEL YOUR TABLES AND REFERENCE THEM. }  
+%    \item \PVAS{DEFINE ALL YOUR VARIABLES HERE PEDANTICALLY.}  
+%\end{itemize}
+

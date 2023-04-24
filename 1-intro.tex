@@ -1,0 +1,65 @@
+\section{Introduction}
+\label{introduction}
+\setlength{\parindent}{5ex}
+ %\ian{Researchers at the World Bank's International Comparison Program (ICP) are in need of recent price estimates for thousands of categories across hundreds of countries, this is clearly a daunting task. By using online data sources to supplement the large amount of manual data collection, researchers at the ICP would be able to greatly increase the speed and accuracy at which they are able to release Purchasing Power Parity reports. In this paper we examine the accuracy and reliability of using online data sources as a substitute for more labor intensive collection methods.}
+ 
+ %Purchasing Power Parity estimates, despite their difficulty in derivation, provide practical real world benefit. PPP estimates are used to compare the economic well-being of countries across exchange rates. For example, if a researcher wants to know which countries incomes have grown the most over the last year they could use PPP estimates to compare income growth across countries. PPP lets the researcher make comparisons in terms of how many goods that country can purchase rather than how much is their currency worth. \citep{Moon2010}. 
+
+%In past practices, price data had to be manually collected, creating a bottleneck for PPP calculation. As a result, price data may have already become outdated by the time it was used to draw PPP related conclusions. We will be avoiding this issue by utilizing Google's SerpAPI to access Walmart's price data in real time. 
+
+
+\trevor{Price indices represent an important tool to both private and public sectors; from a business planning a product's pricing to NGOs measuring global purchasing power parities.  Measuring prices accurately is a significant concern since poor information can lead to poor investments.  While price collection has traditionally occurred in the field, or more recently through scanner data, new codes and the availability of online price data offer an enticing new direction for price index research.}
+
+\trevor{Predominant issues in the collection of price data include the temporal and fiscal constraints of collection: collection in the field takes considerable time and person-hours, and scanner data may only be available as a weekly aggregate behind large pay-walls.  Online data is cheaper, easier, and far faster in its availability.  The ability to collect data on a daily basis offers another benefit: measuring price stickiness in terms of days rather than weeks.}
+
+\trevor{Changes to current notions on price stickiness can have drastic policy implications.  The idea of prices being "sticky" is used to justify arguments that "changes in the money supply have an impact on the real economy, inducing changes in investment, employment, output and consumption" \citep{Wang2016}.  Stickiness impacts indices by misrepresenting price changes via current methodologies.  It is generally accepted that price stickiness is uni-modal, with prices largely remaining unchanged or showing little variation. Our own research, following that of \citep{Cavallo2015}, indicates that prices show a bi-modal distribution with slight increases and decreases that become more pronounced over time (\ref{fig:CavalloFig_1}).}
+
+
+\subsection{Literature Review}
+
+
+
+Past literature has discussed issues with the practice of using simple price data indices, such as the popularized Big Mac Index, to measure global price indices. Much of the goods contained in these indices cannot be traded internationally or contain incomparable service components, ultimately leading to issues in accurately comparing prices.  \citep{Taylor2004}. Despite these issues, price index estimates are used to analyze the effects of national culture such as individualism/collectivism, uncertainty avoidance, and economic capacity. Moreover, analysts can offer insight to retailers and mall managers on how to address variations in consumer behavior through price index estimation. \citep{Gilboa2020}. 
+
+
+\ian{
+One of the biggest issues surrounding the current large-scale price-index collection process is the enormous amount of data required to create accurate calculations. The International Comparison Program (ICP) collected price data for thousands of goods across 146 countries in 2005. The enormous amount of data that must be collected poses a complex problem with no single solution \citep{Angus2009}. In addition, the data collected fails to account for transportation costs and government taxes associated with each product in each country \citep{Pakko2003}.
+}
+
+\ian{
+For example: collecting data for purchasing power parity (PPP) calculations is a cumbersome process that results in estimates being published years after the data has been acquired. The World Bank's International Comparison Program published PPP estimates for 2017 in 2020 \citep{Haishan2020}. A three year lag in the reporting of PPP estimates makes it difficult for decision makers to create relevant policies regarding a countries economic well-being. To give future decision makers up-to-date price data, researchers will need to make use of new technologies and methods to streamline the data collection process.
+}
+
+\trevor{
+We discuss potential methods to improve the data collection process (e.g. Web scraping).  Web-scraping price data holds high desirability for a number of reasons, but the frequency of collection is a key aspect of potential benefits.  This may be most exemplified by the research of several National Statistics Offices on new methods of price data collection, such as the use of web-scraping supplemented by survey responses \citep{Bhardwaj2017} and the use of web-scraping supplemented by "copy-and-paste" techniques of online price data \citep{Polidoro2015}.   These methods have also been used to gather data in developing nations where data collection is more difficult or where countries opt-out of the World Bank International Comparison Program.
+}
+
+\trevor{
+Web-scraped price data has proven viable for similar economic estimation techniques.  A significant issue with price data gathered online is its validity towards replicating established economic models.  Over the last decade several authors have shown that such data is indeed valid for use in predicting dis-aggregated consumer prices indices with a generally high rate of prediction \citep{Powell2018}.  Alberto Cavallo \citep{Cavallo2015} has also shown how scraped data can overcome time-averages and imputation method biases introduced through other data collection methods, specifically scanner and consumer price index data.  These contributions to the literature on web-scraped prices have established new methodologies for supplementing, and sometimes overcoming, traditional price data applications.
+}
+
+\trevor{
+Without access to specific products presented in Cavallo's "Scraped Data and Sticky Prices" \citep{Cavallo2015} (due to the use of proprietary data) we seek to replicate those data with a subset of products, based on the categories presented in the Cavallo data set.  Our data come from daily scraped prices for 78 product-queries through Walmart's online retail store.  Queries represent the search term used in the website's search-bar.  These data are focused on products within the United States, in terms of US Dollars.  By using data across several industries and categories, we will study industry-level price variation; and due to the increased frequency of collection, we expect more price volatility than that seen from lower frequency (per month) data.
+}
+
+\trevor{
+There are many benefits of Purchasing Power Parity estimates, but data collection and presentation is a time-consuming process with several barriers.  Advances in computing power and widespread data availability make the prospect of providing near real-time price index estimates very alluring.  While collection of expenditure data is beyond the scope of this paper, the collection of prices across several products over time can open a pipeline towards future developments in price index estimation.  Such data can allow for the formulation of consumer price indices estimates, which are conceptually similar to PPP estimates, with focus on the temporal and spatial changes in price, respectively \citep{Rao2001}.  By analyzing the "stickiness" of prices per product over time we can provide a platform from which to analyze concepts relevant to purchasing power parities such as the effects of externalities on individuals' purchasing power across time and space.
+}
+
+\trevor{
+In Section~\ref{data} we will discuss the data presented by Alberto Cavallo in "Scraped Data and Sticky Prices" \citep{Cavallo2015}, as well as our own results via the collection of prices from Walmart. The~\ref{solution} section will describe the problems and proposed solutions that we encountered along the way. Section~\ref{analysis} will discuss the results of our findings with respect to the Walmart price data. Finally, the ~\ref{conclusion} section will tie our data and analysis together and explain gaps and limitations, as well as avenues for potential future analyses.\\
+}
+
+%\subsection{Literature Attribution}
+%\begin{itemize}
+%    \item Russell M. wrote paragraph one, part of paragraph two and edited/revised %the review.
+%    \item Brendan H. wrote part of paragraph two and made revisions.
+%    \item Ian D. wrote paragraphs 4-5 in red.
+%    \item Trevor L. wrote paragraphs 3 through 7, colored deep blue with the "trevor{}" command
+%     \PVAS{\item NEEDS ONE MORE CONNECTING PARAGRAPH HERE BEFORE CONCLUDING. 
+%     \item TELL THE READER WHAT YOU'RE GOING TO DO TO TEST HOW REPLICABLE %CAVALLO'S AND OTHERS' METHODS ARE WITH WEBSCRAPED DATA PARTICULARLY OVER A SHORTER %TIME HORIZON.
+%    \item STATE HOW YOU'RE GOING TO MEASURE "REPLICABILITY"? E.G. USING THE SAME %ITEM SEARCH TERMS AS CAVALLO FOR CERTAIN CATEGORIES, YOU'LL COMPARE XXX %METRICS/FIGURES USING HIS DATA TO YOUR DATA. \item THIS IS GOING TO SHOW WHAT? 
+%    \item THE PREVIOUS TEXT IS GREAT. YOU CAN NOW TAKE IT OUT OF THE BULLET FORMAT %FOR THE NEXT ITERATION
+%    }
+%\end{itemize}  
+

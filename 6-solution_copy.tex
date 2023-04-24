@@ -1,0 +1,98 @@
+\section{Problem description}
+\label{solution}
+
+\begin{itemize}
+\item Restate the objective briefly: \brendan{ 
+In past literature on price stickiness, authors have discussed how sampling and measurement error affect price statistics. In our paper, we hope to highlight common associated with measurement error in the context of calculating the price changes.}
+\trevor{These measurement errors can negatively impact accuracy in common and influential price indices, including Consumer and Producer Price Indices and Purchasing Power Parity.
+}
+
+\item \russell{
+Price data collection for PPP estimates has proven to be a strenuous task due to difficulties in extracting the high volume of data required to draw meaningful conclusions. 
+}
+
+\item Difficulties:
+\begin{enumerate}
+\item\russell{ It is difficult to derive a feasible data collection method that is both accurate and efficient.
+}
+\item \brendan{Historically speaking, analysts have encountered some difficulties when certain scanner prices could not be expressed in whole cents. Th issue of "fractional prices" will be addressed in the paper by the usage of intermediary data collection methods.}
+\trevor{
+\item There are differences in purchasing preferences and behaviors across, and even within regions.
+\item As we have seen in our own data collection, prices are often difficult to acquire, or may be so variable as to make accurate product pricing difficult to ascertain without related sales data.
+\item Differences in item quality can potentially be significant across markets.
+\item Unique product identifiers, such as SKU and UPC codes, can change over time leading to a comparison of different products, or continuing collection for the same product data, to become inaccurate.
+}
+\end{enumerate}
+
+
+%\begin{itemize}
+
+\item Purchasing Power Parity
+
+\begin{enumerate}
+\item\russell{ By the time the data has been used to create estimates for PPP, it may already have become outdated. 
+}
+\end{enumerate}
+%\end{itemize}
+
+\item Overview of Solutions
+\begin{enumerate}
+
+\item \trevor{By using prices pulled from Walmart's API, directly, we overcome the need to use intermediary sources of data collection, such as scanner data and in-person records.
+\item Walmart's online prices are standard across regions within the United States, overcoming concerns that about regional pricing differences.
+\item Large collections of daily data allow us to collect prices from a large number of items per query, allowing us to disregard observations without price information.  In trials, a negligible number of observations have been lost (performing the initial test on data collected May 8, 2021, 1 of 2852 observations did not have price data, or 0.035063113\% of observations).
+\item Items sold by Walmart online are standardized across regions, negating the potential for quality differentiation across regions.
+\item Having access to two forms of unique product identifiers, and product titles, allows us to potentially compare three identifying labels to ensure products are the same over time, forgoing issues such as changing SKU or UPC codes.}
+\end{enumerate}
+}
+
+\item Tertiary Solutions
+\begin{enumerate}
+\item \trevor{We seek to increase the availability and quantity of price data by running data collection code on a daily basis.
+}
+\item \russell{We begin our approach to these issues by utilizing python to access Google's SerpAPI. This basket contains categories of items that are common across countries such as household cleaning products and basic grocery items. 
+THE prices are gathered from Google's SerpAPI platform, and are accessed through Walmart's online store using the Walmart engine. Our collection of real time daily prices will allow us to create a data set that can be used to analyze price changes across time. Automating the data collection in this fashion negates the issue of letting the data become outdated during analysis. Being able to work with current price data will create a significant advantage in overcoming the prior mentioned difficulties in PPP price data collection.  
+}
+\end{enumerate}
+
+\item Cavallo Replication Discussion:
+\begin{enumerate}
+\item\russell{
+    We will replicate Cavallo's analysis of changes in prices across time, as well as include similar summary statistics of our aggregated data. Through a density plot visualization we will be able to observe the variation of price changes between our shorter termed data set and Cavallo's longer termed. 
+    In addition to providing insight towards the effectiveness and feasibility of USING web-scrapED price data, our method will also show its applicability in providing short term analysis.
+}
+\end{enumerate}
+\end{itemize}
+
+\subsection{Data Collection Method}
+\trevor{
+The following code is an example of how the data were collected from Google's SerpAPI platform using the Walmart engine.  This abbreviated version was used to start collecting data on April 28, 2021, while an expanded version (including several new queries) was started on May 5, 2021.  Minimal changes were used to gather data from Google Shopping through the SerpAPI Google Search engine.
+}
+
+
+\PVAS{PROFESSOR VASILAKY'S COMMENTS WEEK 6 56/60\\
+Overall, good work. See the comments I left in the margin. Move the explanation regarding Cavallo's work up. It can be introduced sooner. It also  needs a bit more explanation. Describe the paper you are referencing. What does it aim to do and why?  What parts of that paper - tables/figures - are you replicating? Fix the references about scraping where noted. Move the code into an appendix section and reference it, rather than inline.\\
+For the file structure - some part needs finishing. The descriptions of the files should be listed INSIDE the file structure, rather than a few that are described above. What is Walmart abbreviated versus expanded? Where should the user be changing their API key? } 
+
+
+\trevor{
+We observe price changes by linking individual products with a product identifier.  We then observe how much, and in which direction, that unique product's price changes from one period to the next (our lagged prices).  We use this information to show...\\
+}
+[INSERT WHAT WE ARE GOING TO SHOW IN A GRAPH HERE!!]\\
+ie. We averaged price changes within categories and compared them below / We averaged all price changes and show the density estimation below / We averaged prices based on country and compared them below
+
+After the data are collected we use the following R code to extract the price information.\\
+
+Problem and Solution Attribution:
+\begin{itemize}
+\item \ian{Ian} wrote the R code to extract price data.
+\item \brendan{Brendan} wrote the main script from the original Cavallo script and contributed to sections in the first paragraph of the Problem Description section of the paper, and made revisions.
+\item \trevor{Trevor} wrote the data collection codes, wrote the read me .txt file, wrote the variable information .txt file, wrote the collection and concatenation .txt file, added sections to the problems section, and added sections to the solutions section.
+\item \russell{Russell} wrote the table 2 replication code, sections in the problem section, sections in our own solutions, and  sections in the replicated cavallo solutions 
+\end{itemize}
+
+Instructor Comments:
+\begin{itemize}
+    \item \PVASP{MEASUREMENT ERRORS IN PRICE STATISTICS CAN INFLUENCE THE ACCURACY OF PRICE INDICES SUCH AS PURCHASING POWER PARTIY, CONSUMER PRICE INDICES, XXXXX.} 
+
+\end{itemize}

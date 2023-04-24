@@ -1,0 +1,66 @@
+
+
+
+\begin{table}
+\centering
+\scalebox{1}{
+  \begin{threeparttable}
+    \caption{Database Description (Table 2 of \citet{Cavallo2015})}
+     \begin{tabular}{lllllll}
+        \toprule
+         & {Google Shopping} & {Walmart (abbreviated)} & {Walmart (expanded)} \\
+        \midrule
+            Queries\tnote{a}       	& 5 	& 18 	& 78 \\
+            Locations\tnote{b}	   	& 21 	& 1 	& 1 \\
+            Avg. Daily Observations	& 2100  & 678	& 2303  \\        \bottomrule
+     \end{tabular}
+     
+    \begin{tablenotes}
+      \small
+            \item[a] queries are strings used as search parameters for items (ie. the string typed into a search-bar)
+            \item[b] locations are strings used to reference a geographical server from which the string takes place 
+    \end{tablenotes}
+  \end{threeparttable}
+  }
+\end{table}
+\label{table:scrape1}
+
+\begin{table}
+\centering
+\scalebox{1}{
+  \begin{threeparttable}
+    \caption{Database Description (Table 2 of \citet{Cavallo2015}) with New Walmart Data Column}
+     \begin{tabular}{lllllll}
+        \toprule
+         & \( US \) & \( Argentina \) & \( Brazil \) & \( Chile \) & \( Columbia \) & \(Walmart \) \\
+        \midrule
+Retailers\tnote{a}                       & 4                                 & 1                             & 1                          & 1                         & 1                          & 1  \\
+Observations (millions)\tnote{b}         & 28                                & 11                            & 10                         & 10                        & 4                          & 0.03  \\
+Products (thousands)\tnote{c}            & 172                               & 28                            & 22                         & 24                        & 9                          & 4  \\
+Days\tnote{d}                            & 865                               & 1,041                         & 1,026                      & 1,024                     & 992                        & 18  \\
+Initial Date\tnote{e}                    & 03/08                             & 10/07                         & 10/07                      & 10/07                     & 11/07                      & 04/28/21  \\
+Final Date\tnote{f}                      & 08/10                             & 08/10                         & 08/10                      & 08/10                     & 08/10                      & current  \\
+Categories\tnote{g}                      & 49                                & 74                            & 72                         & 72                        & 59                         & 11  \\
+URLs\tnote{h}                            & 16,188                            & 993                           & 322                        & 292                       & 123                        & 6,887  \\
+Total missing observations (\%)\tnote{i} & 37                              & 32                            & 26                         & 33                        & 22                         & 0.04  \\ \hline
+        \bottomrule
+     \end{tabular}
+     
+    \begin{tablenotes}
+      \small
+      \item[a] number of retailers from which data is gathered 
+      \item[b] total number of observations of price and metadata 
+      \item[c] total number of unique products 
+      \item[d] total number of days for which data was collected 
+      \item[e] initial date of data collection 
+      \item[f] final date of data collection 
+      \item[g] total number of product categories 
+      \item[h] total number of unique product page urls 
+      \item[i] total percentage of products for which price data is missing 
+    \end{tablenotes}
+  \end{threeparttable}
+  }
+\end{table}
+\label{table:cavallo1}
+
+

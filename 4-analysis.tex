@@ -1,0 +1,83 @@
+\section{Results}
+\label{analysis}
+\ian{We begin by comparing the price distribution found by Cavallo in Figure~\ref{fig:Cavallo_dist} to the price distribution we obtained with our aggregated data in Figure~\ref{fig:price_dist}. Immediately, we see that there is a higher concentration of price changes around 0 in our distribution when compared with Cavallo's.}
+\trevor{However, comparing a subset of Cavallo's data, from April 28, 2010 to May 23, 2010 to coincide with our own data, we see a similar distribution of price changes across categories.  Immediately noticeable is how the increased number of categories and products flattens the density compared to our own results.}
+\ian{The maximum price decrease in our sample was -10\% while the maximum price increase was about 3\%. When comparing the variability of the two distributions we see less variance in our sample and a left skew. When compared with Cavallo's results, our aggregated price data more closely matches the CPI imputation data rather than the online price data. To make a more accurate comparison to Cavallo's data, we also plot the average price changes for a 14 day sub sample from May 1st, 2008 until May 14th, 2008. The distribution of price changes for the sub sample can be seen in Figure~\ref{fig:sub_dist}. Comparing the sub sample distribution with the distribution from the API data we can see that the sub sample has less variance and has more observations around 0. While the size of the price changes are not very similar the shape of the distributions are fairly comparable considering this is only looking at a 14 day window.}
+
+\trevor{It is likely that scanner data provides misleading results from smoothing of the data.  Prior literature had shown price changes to largely be uni-modal around zero, but Cavallo argues that the true distribution is bi-modal, with a positive and negative mode.  Figure~\ref{fig:CavalloFig_1} shows a subset of Cavallo's scraped prices compared to both a simulation of the data averaged by week and scanner data obtained by AC Nielson for the same retailer.  Cavallo notes that the weekly averaging of prices in the simulated and scanner data reduces the affects (and visualization) of large price changes.  Coupons and loyalty cards may act to further smooth the price changes by providing consumers with lower prices than those posted, affecting the scanner data but not scraped prices.  
+We should also note that prices collected from our own API do not account for the possibility of temporary changes in prices due to a range of factors, such as overstocking, expirations, promotions, or new product launches.  Several observations in our data indicate massive changes, such as discounts in medicines, toys, and books that may be explained by expiration, new models, or lack of demand, respectively, or, drastic increases in prices that are not so easily explained.}
+\trevor{It is difficult to capture the external validity of these findings.  Returning to purchasing power parities, it would be necessary to capture these data across borders; the Walmart price data focuses on US prices at a macroscopic level.  Time is also a factor that we hope to expand in the future; current events, such as mask mandates and social distancing orders, likely play a large role in daily price changes specific to region.  Walmart, one of the largest retailers in the world, let alone the US, may not capture how prices change for smaller retailers, especially those limited to intra-national or intra-regional markets.}
+
+\subsection{Depth of Raw API Data}
+
+\begin{center}
+\begin{table}[hbt!]
+\caption{Walmart API Data Summary}
+\label{tab:my-table}
+\begin{tabular}{@{}|ll|@{}}
+\toprule
+\tabcolsep = 0.07cm
+\textbf{Walmart Data (US)}               & \textbf{Value} \\ \midrule
+\textit{Start Date}                      & 4/27/21        \\
+\textit{End Date}                        & 5/22/21        \\
+\textit{Days}                            & 23             \\
+\textit{Total Missing Observations (\%)} & 6.8            \\
+\textit{Unique Products}                 & 5412           \\
+\textit{URLS}                            & 8501           \\
+\textit{Observations}                    & 53905          \\
+\textit{Unique Categories}               & 11             \\ \bottomrule
+\end{tabular}
+\end{table}
+\end{center}
+
+\russell{ Table 3 presents the raw results of our data collection method across all product categories. There are 6.8\% of the 53,905 total price observations missing due to either items being out of stock or flaws with the Walmart API. Examining this further, we found that these price absences do not last for more than a few days. Compared to Cavallo's web scraping method, our usage of an API has produced less missing observations (by percentage of total observations). With more time to collect data however, the overall missing observation percentage may more closely align with Cavallo's results. In table 4 we further examine our sample divided into 5 sectors based on those commonly used for the creation of price indices. Most notably, the Food and Drinks sector has 20.53\% of its total observations missing, possibly due to supply shocks at the time of our data collection.}
+
+
+
+\begin{center}
+\begin{table}[hbt!]
+\small
+\tabcolsep = 0.07cm
+\caption{Summary by Sector (Walmart API US)}
+\label{tab:my-table}
+\begin{tabular}{|l|lllll|}
+\hline
+\textbf{} & \textit{\textbf{Food/Beverages}} & \textit{\textbf{Electronics}} & \textit{\textbf{Household Goods}} & \textit{\textbf{Clothing}} & \textit{\textbf{Health}} \\ \hline
+\textit{\textbf{Average Price (Dollars)}} & 15.06 & 293.47 & 58.79 & 16.15 & 13.31 \\ \cline{1-1}
+\textit{\textbf{Unique Products}} & 1307 & 422 & 1236 & 1007 & 309 \\ \cline{1-1}
+\textit{\textbf{URLS}} & 2054 & 573 & 2008 & 1253 & 842 \\ \cline{1-1}
+\textit{\textbf{Total Missing (\%)}} & 20.53 & 0.0 & 1.33 & .21 & .07 \\ \cline{1-1}
+\textit{\textbf{Observations}} & 13381 & 4335 & 14110 & 5137 & 4248 \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+Even with a few weeks and roughly 55,000 observations sampled, we were still able to witness noticeable price changes that could be represented graphically in Figure 2. Our ability to derive results of this fashion should be viewed as a positive in terms of evaluating the feasibility of our API data collection method.
+
+
+
+%\subsection{Week 7 Attributions}
+%\begin{itemize}
+%\item \ian{Ian} Started the results section, organized the price data, and created Figure 2. 
+%\item \brendan{Brendan} Worked through the Cavallo code to replicate Figure 1. 
+%\item \trevor{Trevor} Worked on instructor's comments in the Problem section, wrote part of the Results section, continued collecting data, and worked on troubleshooting code and documentation.
+%\item \russell{russell} Worked on comments in the problem section, created updated summary table in the results section (table 3), and wrote about table 3 in the results section.
+%\end{itemize}
+
+%\PVAS{Professor Vasilaky's Week 7 comments 35/40:\\
+%Overall - good start to the results section. Certain points need more clarity on what Cavallo did, and what he found, and how your results differ. I left comments in the margins and summarize them below, as well as a suggestion for another graph comparing your data to Cavallo's. 
+%\begin{itemize}
+%\item Problem Description 
+%\begin{itemize}
+%\item Make sure you define price stickiness. Is it just the percent change in prices for a product day to day?
+%\item The problem description needs more explanation of what Cavallo is attempting to do by plotting price changes between online data and scanner data. I left note as to where you can do that. 
+%\item The intention of the Cavallo paper is to compare scanner data to online data - not to do away with scanner data. In particular, he wants to show that the ways in which scanner data had previously been "filled out" in past papers gave an erroneous picture of price stickiness. Online data, he found, was stickier - and your group should explain why - which led to that bimodal distribution of price changes of online data. 
+%\end{itemize}
+%\item Results
+%\begin{itemize}
+%\item Clearly state why the distributions of the two price sources differ, and explain which one Cavallo believes is the "true" distribution. 
+%\item To make a more fair comparison of the Cavallo data with your data, take a 14 day snippit of his data and plot it and compare it to your 14 day period of data. 
+%\item If the distribution of price changes for your online data differs from Cavallo's then you should give some explanation as to why you think that is. 
+%\end{itemize}
+%\end{itemize}
+%}

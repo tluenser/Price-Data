@@ -1,0 +1,62 @@
+\section{Problem description}
+\label{solution}
+
+
+\brendan{ 
+In past literature on price stickiness, authors have discussed how sampling and measurement error affect price statistics. In our paper, we hope to highlight common associated with measurement error in the context of calculating the price changes.}
+\trevor{These measurement errors can negatively impact accuracy in common and influential price indices, including Consumer and Producer Price Indices (CPI) and Purchasing Power Parity (PPP).}   \russell{Price data collection for price index estimates has proven to be a strenuous task due to difficulties in extracting the high volume of data required to draw meaningful conclusions.}
+
+\subsection{Cavallo Replication} 
+
+\russell{Cavallo has explored issues such as measurement error in price data collection, and will partially replicate Cavallo's analysis from \citep{Cavallo2015} in which he compares online price data to scanner data to evaluate biases on measuring price stickiness. Notably, Cavallo shows that although daily online data captures more price fluctuations, it is found to be stickier than scanner data when evaluated at the same time interval. He attributes this to the sampling bias present in scanner data caused by supplemental time averages and imputations that in turn falsely reduces the duration of price changes. Building upon this, we will be evaluating price changes utilizing an API as opposed to web-scraped online price data or scanner data. 
+Through a density plot visualization, based upon Figure 1 in Cavallo's paper, we will be able to observe the variation of price changes between our shorter-termed data set of Walmart's online prices and Cavallo's longer-termed data set of online US prices . Additionally, we will subset Cavallo's online price data to a 14 day period and create a similar plot to compare his results if his time horizon was the same as ours. We will also include a similar summary table to Cavallo's Table 2 in order to provide contrast between the two data gathering methods (API and Web-Scrape), as well as display the depth of our collection.  
+In addition to providing insight towards the effectiveness and feasibility of API derived price data of a single large retailer, our method will also show its applicability in contributing to short term analysis of price changes.
+}
+\subsection{Difficulties}
+
+\russell{ It is difficult to derive a feasible data collection method that is both accurate and efficiently.}  \brendan{Historically speaking, analysts have encountered some difficulties when certain scanner prices could not be expressed in whole cents. The issue of "fractional prices" will be addressed in the paper by the usage of intermediary data collection methods.}  
+
+\trevor{There are differences in purchasing preferences and behaviors across, and even within regions.  As we have seen in our own data collection, prices are often difficult to acquire, or may be so variable as to make accurate product pricing difficult to ascertain without related sales data.  Differences in item quality can potentially be significant across markets.  Unique product identifiers, such as SKU and UPC codes, can change over time leading to a comparison of different products, or continuing collection for the same product data, to become inaccurate.}  \russell{ By the time the data has been used to create estimates for 
+%\PVAS{INDICES LIKE PPP OR CPI}
+indices such as Purchasing Power Parity or consumer price indices, it may already have become outdated. 
+}
+
+\subsection{Overview of Solutions}
+
+\trevor{By using prices pulled from Walmart's API, we overcome the need to use intermediary sources of data collection, such as scanner data and in-person records.  Walmart's online prices are standard across regions within the United States, overcoming concerns about regional pricing differences.  Large collections of daily data allow us to collect prices from a large number of items per query, allowing us to disregard observations without price information.  In trials, a negligible number of observations have been lost (performing the initial test on data collected May 8, 2021, 1 of 2852 observations did not have price data, or 0.035063113\% of observations).  Items sold by Walmart online are also standardized across regions, negating the potential for quality differentiation across regions.}  
+
+\trevor{Having access to two forms of unique product identifiers and product titles allows us to potentially compare three identifying labels to ensure products are the same over time, forgoing issues such as changing SKU or UPC codes.}
+
+\trevor{We seek to increase the availability and quantity of price data by running data collection code on a daily basis.
+}  
+\russell{We begin our approach to these issues by utilizing python to access Google's SerpAPI. Our basket of goods contains 11 categories of items that are common across countries \footnote{Foods,Drinks,Home Improvement,Home and Furniture,Toys and Games,Dry Goods,Electronics,Clothing and Accessories,School and Office,Health,Entertainment}}  
+
+\russell{The prices are gathered from Google's SerpAPI platform, and are accessed through Walmart's online store using the Walmart engine. Our collection of real time daily prices will allow us to create a data set that can be used to analyze price changes across time at a higher frequency than that of CPI or scanner price data. Automating the data collection in this fashion negates the issue of letting the data become outdated during analysis. Being able to work with current price data will create a significant advantage in overcoming the prior mentioned difficulties in price data collection.}
+
+
+
+
+\subsection{Data Collection Method}
+\trevor{
+The code in Appendix~\ref{appendixA} - Appendix~\ref{appendixF} shows how the data were collected from Google's SerpAPI platform using the Walmart engine.  An abbreviated version was used to start collecting data on April 28, 2021, while an expanded version (including several new queries) was started on May 5, 2021.  Minimal changes were used to gather data from Google Shopping through the SerpAPI Google Search engine.
+}
+
+\ian{After collecting and cleaning the price data we calculate average price changes for each day in the data. We begin by calculating the average price for each day, next we take the average price of the following day and subtract off the current price before dividing this quantity by the current price. Using this formula we are able to derive daily average price changes for online products in the US. Finding a distribution of price changes that is similar to the distribution found by Cavallo, would provide evidence to support the hypothesis that online prices can be used to supplement physical price data.}
+  
+  
+  
+%\subsection{Problem and Solution Attribution:}
+%\begin{itemize}
+%\item \ian{Ian} wrote the R code to extract price data.
+%\item \brendan{Brendan} wrote the main script from the original Cavallo script and contributed to sections in the first paragraph of the Problem Description section of the paper, and made revisions.
+%\item \trevor{Trevor} wrote the data collection codes, wrote the read me .txt file, wrote the variable information .txt file, wrote the collection and concatenation .txt file, added sections to the problems section, and added sections to the solutions section.
+%\item \russell{Russell} wrote the table 2 replication code, sections in the problem section, sections in our own solutions, and  sections in the replicated cavallo solutions 
+%\end{itemize}
+
+%Instructor Comments:
+%\begin{itemize}
+%    \item \PVASP{MEASUREMENT ERRORS IN PRICE STATISTICS CAN INFLUENCE THE ACCURACY OF PRICE INDICES SUCH AS PURCHASING POWER PARTIY, CONSUMER PRICE INDICES, XXXXX.} 
+%    \item \PVAS{PROFESSOR VASILAKY'S COMMENTS WEEK 6 56/60\\
+%    Overall, good work. See the comments I left in the margin. Move the explanation regarding Cavallo's work up. It can be introduced sooner. It also  needs a bit more explanation. Describe the paper you are referencing. What does it aim to do and why?  What parts of that paper - tables/figures - are you replicating? Fix the references about scraping where noted. Move the code into an appendix section and reference it, rather than inline.\\
+%    For the file structure - some part needs finishing. The descriptions of the files should be listed INSIDE the file structure, rather than a few that are described above. What is Walmart abbreviated versus expanded? Where should the user be changing their API key? } 
+%\end{itemize}

@@ -1,0 +1,538 @@
+
+\appendix
+
+
+\section{Google Shopping API Code}
+\label{appendixA}
+\begin{python}
+# REQUIRES: pip install google-search-results
+
+import pandas as pd
+from serpapi import GoogleSearch
+import time
+
+# Set a list of locations for the Google to specify when seeking results
+# This list causes the SerpAPI platform to iterate through different location urls
+locations = ['USA','Japan','Germany','Sweden','Italy',
+            'Paraguay','Brazil','Colombia','Guatemala','Mexico',
+            'Nigeria','Kenya','Egypt','Morocco',
+            'Indonesia','Bangladesh','India','Kazakhstan',
+            'Israel','Oman','Russia']
+
+# Set a list of queries for the search-bar to run through
+queries = ['basmati rice 1 kg','loaf bread','coca cola 1 liter',
+           'intel i7 10850k','steel shovel round point']
+
+# Set an empty dataframe to store observations
+dfg = pd.DataFrame()
+
+# Begin for-loop
+for location in locations:
+    
+    for query in queries:
+        
+        # Set an empty temporary dataframe to store observations
+        df_temp = pd.DataFrame()
+        
+        # Set parameters for accessing the Google SerpAPI platform, running through 
+        # each query and location in their respective lists
+        params = {
+            "engine": "google",
+            "q": query,
+            "location_requested": location,
+            "tbm": "shop",
+                            
+            # The API code is stored here - user needs a personal API code
+            "api_key": "API_CODE"
+        }
+        
+        # Run the API, for each query store the JSON results in a dictionary and keep  
+        # the observation-section of the results
+        search = GoogleSearch(params)
+        results = search.get_dict()
+        shopping_results = results['shopping_results']
+        
+        # Set the temporary dataframe to be the results from the API queries, and 
+        # add today's date as a column vector
+        df_temp = pd.DataFrame.from_dict(shopping_results)
+        df_temp['query'] = query
+        df_temp['location'] = location
+        df_temp['date'] = pd.Timestamp("today").strftime("%m/%d/%Y")
+        
+        # Add the conditional statement to fill the original dataframe if empty, or 
+        # append if there are already observations contained in the dataframe.
+        if dfg.empty == True:
+            dfg = df_temp
+        elif dfg.empty == False:
+            dfg = dfg.append(df_temp, ignore_index=True)
+            
+dfg['category'] = dfg['query']
+dfg.loc[(dfg.category == 'basmati rice 1 lb'), 'category'] = 'foods'
+dfg.loc[(dfg.category == 'loaf bread'), 'category'] = 'foods'
+dfg.loc[(dfg.category == 'coca cola 1 liter'), 'category'] = 'drinks'
+dfg.loc[(dfg.category == 'intel i7 10850k'), 'category'] = 'electronics'
+dfg.loc[(dfg.category == 'steel shovel round point'), 'category'] = 'home improvement'
+
+# Set today's date and save the dataframe as a CSV and XLSX file using today's date.
+todaysdate = time.strftime("%d-%m-%Y")
+dfg.to_csv(r'~\World Bank\Data\Google Data\CSV Files\PPP data google api ' + 
+           todaysdate + '.csv', index = False)
+dfg.to_excel(r'~\tluen\World Bank\Data\Google Data\Excel Files\PPP data google api ' 
+            + todaysdate + '.xlsx', index = False)
+\end{python}
+
+\section{Walmart (Abbreviated) API Code}
+\label{appendixB}
+
+\begin{python}
+# REQUIRES: pip install google-search-results
+
+import pandas as pd
+from serpapi import GoogleSearch
+import time
+
+# Set a list of queries for the search-bar to run through
+queries = ['basmati rice 1 lb','loaf bread','coca cola 1 liter',
+           'milk','oreos','soup','pot pie','creamer','1 pound coffee',
+           'intel i7 10850k','steel shovel round point', 'power drill',
+           '3 shelf bookcase','chair','desk','barbie','settlers of catan',
+           'paper towels']
+
+# Set an empty dataframe to store observations
+dfw = pd.DataFrame()
+
+# Begin for-loop
+for query in queries:
+    
+    # Set an empty temporary dataframe to store observations
+    dfw_temp = pd.DataFrame()
+    
+    # Set parameters for accessing the Google SerpAPI platform, running through each 
+    # query in the queries list
+    params = {
+        "engine": "walmart",
+        "query": query,
+        
+        # The API code is stored here - user needs a personal API code
+        "api_key": "API_CODE" 
+    }
+
+    # Run the API, for each query store the JSON results in a dictionary and keep 
+    # the observation-section of the results
+    search = GoogleSearch(params)
+    results = search.get_dict()
+    shopping_results = results['organic_results']
+    
+    # Set the temporary dataframe to be the results from the API queries, and add 
+    # today's date as a column vector
+    dfw_temp = pd.DataFrame.from_dict(shopping_results)
+    dfw_temp_p = pd.json_normalize(dfw_temp['primary_offer'])
+    dfw_temp = pd.concat([dfw_temp,dfw_temp_p], axis=1)
+    dfw_temp['date'] = pd.Timestamp("today").strftime("%m/%d/%Y")
+    dfw_temp['query'] = query
+
+    # Add the conditional statement to fill the original dataframe if empty, or 
+    # append if there are already observations contained in the dataframe.
+    if dfw.empty == True:
+        dfw = dfw_temp
+    elif dfw.empty == False:
+        dfw = dfw.append(dfw_temp, ignore_index=True)
+        
+dfw['category'] = dfw['query']
+dfw.loc[(dfw.category == 'basmati rice 1 lb'), 'category'] = 'foods'
+dfw.loc[(dfw.category == 'loaf bread'), 'category'] = 'foods'
+dfw.loc[(dfw.category == 'oreos'), 'category'] = 'foods'
+dfw.loc[(dfw.category == 'soup'), 'category'] = 'foods'
+dfw.loc[(dfw.category == 'pot pie'), 'category'] = 'foods'
+dfw.loc[(dfw.category == 'coca cola 1 liter'), 'category'] = 'drinks'
+dfw.loc[(dfw.category == 'milk'), 'category'] = 'drinks'
+dfw.loc[(dfw.category == 'creamer'), 'category'] = 'drinks'
+dfw.loc[(dfw.category == '1 pound coffee'), 'category'] = 'drinks'
+dfw.loc[(dfw.category == 'steel shovel round point'), 'category'] = 'home improvement'
+dfw.loc[(dfw.category == 'power drill'), 'category'] = 'home improvement'
+dfw.loc[(dfw.category == '3 shelf bookcase'), 'category'] = 'home and furniture'
+dfw.loc[(dfw.category == 'chair'), 'category'] = 'home and furniture'
+dfw.loc[(dfw.category == 'desk'), 'category'] = 'home and furniture'
+dfw.loc[(dfw.category == 'barbie'), 'category'] = 'toys and games'
+dfw.loc[(dfw.category == 'settlers of catan'), 'category'] = 'toys and games'
+dfw.loc[(dfw.category == 'paper towels'), 'category'] = 'dry goods'
+dfw.loc[(dfw.category == 'intel i7 10850k'), 'category'] = 'electronics'
+
+# Set today's date and save the dataframe as a CSV and XLSX file using today's date.
+todaysdate = time.strftime("%d-%m-%Y")
+dfw.to_csv(r'~\World Bank\Data\Walmart Data\CSV Files\PPP data walmart api ' + 
+           todaysdate + '.csv', index = False)
+dfw.to_excel(r'~\World Bank\Data\Walmart Data\Excel Files\PPP data walmart api ' + 
+             todaysdate + '.xlsx', index = False)
+\end{python}
+
+
+\section{Walmart (Expanded) API Code}
+\label{appendixC}
+\begin{python}
+# REQUIRES: pip install google-search-results
+
+import pandas as pd
+from serpapi import GoogleSearch
+import time
+
+# Set a list of queries for the search-bar to run through
+queries = ['basmati rice 1 lb','loaf bread','oreos','soup','pot pie','eggs',
+            'top sirloin', 'chicken breast','coca cola 1 liter','milk','creamer',
+            '1 pound coffee','apple juice', '1 gallon water','gatorade','red bull',
+            'cold brew','capri sun','steel shovel round point', 'power drill',
+            'rug','vinyl flooring','caulk','hammer','3 shelf bookcase','chair','desk',
+            'table','washing machine','sauce pan','spatula','toaster','kitchen aide',
+            'barbie','settlers of catan','soccer ball','lego','ticket to ride',
+            'magic the gathering', 'bicycle','vtech','nerf','monopoly','paper towels',
+            'trash bags', 'plastic utensils','toilet paper','intel i7 10850k',
+            'apple watch','chromebook','go pro', 'graphics card','1 tb hard drive',
+            'airpods pro','google nest','tshirt','shorts','pants', 'sandals','jeans',
+            'baseball cap','ibuprofen','acetaminophen','bandage','thermometer', 
+            'vitamin d3','diapers','hardcover book','softcover book','bluray',
+            'nintendo switch','playstation', 'binder','notepad','pens','pencils',
+            'scissors']
+
+# Set a list of pages for the search-bar to run through
+pages = ["1","2"]
+
+# Set an empty dataframe to store observations
+dfwx = pd.DataFrame()
+
+# Begin for-loop
+
+for query in queries:
+
+    # Set an empty temporary dataframe to store observations
+    dfw_temp = pd.DataFrame()
+
+    # Set parameters for accessing the Google SerpAPI platform, running through each 
+    # query in the queries list
+    params = {
+        "engine": "walmart",
+        "query": query,
+                
+        # The API code is stored here - user needs a personal API code
+        "api_key": "API_CODE"
+    }
+
+    # Run the API, for each query store the JSON results in a dictionary and keep 
+    # the observation-section of the results
+    search = GoogleSearch(params)
+    results = search.get_dict()
+    shopping_results = results['organic_results']
+
+    # Set the temporary dataframe to be the results from the API queries, and add 
+    # today's date as a column vector
+    dfw_temp = pd.DataFrame.from_dict(shopping_results)
+    dfw_temp['query'] = query
+    dfw_temp['date'] = pd.Timestamp("today").strftime("%m/%d/%Y")
+
+
+    # Add the conditional statement to fill the original dataframe if empty, or 
+    # append if there are already observations contained in the dataframe.
+    if dfwx.empty == True:
+        dfwx = dfw_temp
+    elif dfwx.empty == False:
+        dfwx = dfwx.append(dfw_temp, ignore_index=True)
+        
+# Extract prices from 'primary_offer' dictionary-column
+# Average min/max/offer price to normalize prices
+dfwx = dfwx[dfwx['primary_offer'].notnull()]
+dfwx_p = pd.json_normalize(dfwx['primary_offer'])
+dfwx = pd.concat([dfwx,dfwx_p], axis=1)
+dfwx['avg_price'] = dfwx[['min_price','max_price','offer_price']].mean(axis=1)
+        
+# Set a category column vector and set categories based on query
+dfwx['category'] = dfwx['query']
+dfwx.loc[(dfwx.category == 'basmati rice 1 lb'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'loaf bread'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'oreos'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'soup'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'pot pie'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'eggs'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'top sirloin'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'chicken breast'), 'category'] = 'foods'
+dfwx.loc[(dfwx.category == 'coca cola 1 liter'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'milk'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'creamer'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == '1 pound coffee'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'apple juice'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == '1 gallon water'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'gatorade'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'red bull'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'cold brew'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'capri sun'), 'category'] = 'drinks'
+dfwx.loc[(dfwx.category == 'steel shovel round point'), 'category'] = 'home improvement'
+dfwx.loc[(dfwx.category == 'power drill'), 'category'] = 'home improvement'
+dfwx.loc[(dfwx.category == 'rug'), 'category'] = 'home improvement'
+dfwx.loc[(dfwx.category == 'vinyl flooring'), 'category'] = 'home improvement'
+dfwx.loc[(dfwx.category == 'caulk'), 'category'] = 'home improvement'
+dfwx.loc[(dfwx.category == 'hammer'), 'category'] = 'home improvement'
+dfwx.loc[(dfwx.category == '3 shelf bookcase'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'chair'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'desk'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'table'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'washing machine'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'sauce pan'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'spatula'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'toaster'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'kitchen aide'), 'category'] = 'home and furniture'
+dfwx.loc[(dfwx.category == 'barbie'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'settlers of catan'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'soccer ball'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'lego'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'ticket to ride'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'magic the gathering'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'bicycle'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'vtech'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'nerf'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'monopoly'), 'category'] = 'toys and games'
+dfwx.loc[(dfwx.category == 'paper towels'), 'category'] = 'dry goods'
+dfwx.loc[(dfwx.category == 'paper plates'), 'category'] = 'dry goods'
+dfwx.loc[(dfwx.category == 'trash bags'), 'category'] = 'dry goods'
+dfwx.loc[(dfwx.category == 'plastic utensils'), 'category'] = 'dry goods'
+dfwx.loc[(dfwx.category == 'toilet paper'), 'category'] = 'dry goods'
+dfwx.loc[(dfwx.category == 'intel i7 10850k'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == 'apple watch'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == 'chromebook'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == 'go pro'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == 'graphics card'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == '1 tb hard drive'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == 'airpods pro'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == 'google nest'), 'category'] = 'electronics'
+dfwx.loc[(dfwx.category == 'tshirt'), 'category'] = 'clothing and accessories'
+dfwx.loc[(dfwx.category == 'shorts'), 'category'] = 'clothing and accessories'
+dfwx.loc[(dfwx.category == 'pants'), 'category'] = 'clothing and accessories'
+dfwx.loc[(dfwx.category == 'sandals'), 'category'] = 'clothing and accessories'
+dfwx.loc[(dfwx.category == 'jeans'), 'category'] = 'clothing and accessories'
+dfwx.loc[(dfwx.category == 'baseball cap'), 'category'] = 'clothing and accessories'
+dfwx.loc[(dfwx.category == 'ibuprofen'), 'category'] = 'health'
+dfwx.loc[(dfwx.category == 'acetaminophen'), 'category'] = 'health'
+dfwx.loc[(dfwx.category == 'bandage'), 'category'] = 'health'
+dfwx.loc[(dfwx.category == 'thermometer'), 'category'] = 'health'
+dfwx.loc[(dfwx.category == 'vitamin d3'), 'category'] = 'health'
+dfwx.loc[(dfwx.category == 'diapers'), 'category'] = 'health'
+dfwx.loc[(dfwx.category == 'hardcover book'), 'category'] = 'entertainment'
+dfwx.loc[(dfwx.category == 'softcover book'), 'category'] = 'entertainment'
+dfwx.loc[(dfwx.category == 'bluray'), 'category'] = 'entertainment'
+dfwx.loc[(dfwx.category == 'nintendo switch'), 'category'] = 'entertainment'
+dfwx.loc[(dfwx.category == 'playstation'), 'category'] = 'entertainment'
+dfwx.loc[(dfwx.category == 'binder'), 'category'] = 'school and office'
+dfwx.loc[(dfwx.category == 'notepad'), 'category'] = 'school and office'
+dfwx.loc[(dfwx.category == 'pens'), 'category'] = 'school and office'
+dfwx.loc[(dfwx.category == 'pencils'), 'category'] = 'school and office'
+dfwx.loc[(dfwx.category == 'scissors'), 'category'] = 'school and office'
+
+# Set today's date and save the dataframe as a CSV and XLSX file using today's date.
+todaysdate = time.strftime("%d-%m-%Y")
+dfwx.to_csv(r'~\World Bank\Data\Walmart Data\CSV Files\PPP data walmart api ' + 
+           todaysdate + ' expanded.csv', index = False)
+dfwx.to_excel(r'~\World Bank\Data\Walmart Data\Excel Files\PPP data walmart api ' + 
+           todaysdate + ' expanded.xlsx', index = False)
+\end{python}
+
+
+
+\section{Concatenation Codes}
+\label{appendixD}
+\begin{python}
+# Google Shopping: concatenate new data to old full dataset
+
+df_old_csv_gs = pd.read_csv (r'~\World Bank\Data\Google Data\google_data_full.csv')
+df_new_gs = pd.concat([df_old_csv_gs, dfg])
+df_new_gs.to_csv(r'~\World Bank\Data\Google Data\google_data_full.csv', index = False)
+df_new_gs.to_excel(r'~\World Bank\Data\Google Data\google_data_full.xlsx', index = False)
+
+# Walmart Abbreviated: concatenate new data to old full dataset
+
+df_old_csv_abbr = pd.read_csv (r'~\World Bank\Data\Walmart Data\walmart_abbr_full.csv')
+df_new_abbr = pd.concat([df_old_csv_abbr, dfw])
+df_new_abbr.to_csv(r'~\World Bank\Data\Walmart Data\walmart_abbr_full.csv', index = False)
+df_new_abbr.to_excel(r'~\World Bank\Data\Walmart Data\walmart_abbr_full.xlsx', index = False)
+
+# Walmart Expanded: concatenate new data to old full dataset
+
+df_old_csv_exp = pd.read_csv (r'~\World Bank\Data\Walmart Data\walmart_exp_full.csv')
+df_new_exp = pd.concat([df_old_csv_exp, dfwx])
+df_new_exp.to_csv(r'~\World Bank\Data\Walmart Data\walmart_exp_full.csv', index = False)
+df_new_exp.to_excel(r'~\World Bank\Data\Walmart Data\walmart_exp_full.xlsx', index = False)
+\end{python}
+
+\section{Sorting, Lagging, Price Changes, and Finding Critical Observations}
+\label{appendixE}
+
+\begin{python}
+import pandas as pd
+
+# Import the current full dataset
+df_new_exp = pd.read_csv (r'~\World Bank\Data\Walmart Data\walmart_exp_full.csv')
+
+# Prepare a column for lag-prices
+df_new_exp['lag_avg_price'] = df_new_exp['avg_price']
+dfx = df_new_exp[df_new_exp.duplicated('product_id', keep=False)]
+
+# Group products by product id and set definitions to lag the average prices
+grouped_df = dfx.groupby(["product_id"])
+def lag_by_group(key, value_df):
+    df = value_df.assign(group = key) 
+    return (df.sort_values(by=["date"], ascending=True)
+        .set_index(["date"])
+        .lag_avg_price.shift(1)
+               )
+def sort_by_group(key, value_df):
+    df = value_df.assign(group = key)
+    return (df.sort_values(by=["date"], ascending=True)
+        .set_index(["date"])
+               )
+               
+# Create a column of grouped, lag prices
+dflist = [lag_by_group(g, grouped_df.get_group(g)) for g in grouped_df.groups.keys()]
+new_df = pd.concat(dflist, axis=0).reset_index()
+
+# Sort the dataframe and concatenate the lag prices
+dfglist = [sort_by_group(g, grouped_df.get_group(g)) for g in grouped_df.groups.keys()]
+new_dfg = pd.concat(dfglist, axis=0).reset_index()
+new_dfg = new_dfg.drop(['lag_avg_price'], axis=1, errors='ignore')
+sorted_lagged_df = pd.concat([new_dfg,new_df],axis=1).reset_index()
+
+# Create a column of absolute change in price, and a column of percentage change in price
+sorted_lagged_df['price_change'] = sorted_lagged_df['avg_price'] - sorted_lagged_df['lag_avg_price']
+sorted_lagged_df['prct_change'] = (sorted_lagged_df['price_change']/sorted_lagged_df['avg_price'])*100
+
+# Find critical observations (extrema with price changes greater than 100\% in either direction)
+critical_obs_hi = sorted_lagged_df.loc[(sorted_lagged_df['prct_change'] >= 100.0)]
+critical_obs_lo = sorted_lagged_df.loc[(sorted_lagged_df['prct_change'] <= -100.0)]
+\end{python}
+
+
+
+\section{R Code to Isolate Price Data}
+\label{appendixF}
+\begin{python}
+
+data = read.csv("C:/Users/ian/Downloads/World Bank/World Bank/Data/walmart_exp_full.csv")
+
+min_price_yes = grep('min_price',data$primary_offer)
+max_price_yes = grep('max_price',data$primary_offer)
+offer_price_yes = grep('offer_price',data$primary_offer)
+
+
+#get prices for offer price items
+split_offer = strsplit(data$primary_offer[offer_price_yes], '[[:space:]]')
+
+price = NULL
+for (i in 1:length(split_offer)){
+  price[i] = split_offer[[i]][4]
+}
+
+offer_prices = price
+
+data$price = 0 
+data$price[offer_price_yes] = as.numeric(gsub('\\,', '', offer_prices))
+
+
+#create average prices
+split_min_max = strsplit(data$primary_offer[min_price_yes], '[[:space:]]')
+split_min_max
+
+price_min = NULL
+price_max = NULL
+for (i in 1:length(split_min_max)){
+  price_min[i] = split_min_max[[i]][4]
+  price_max[i] = split_min_max[[i]][6]
+}
+
+price_min_new = as.numeric(gsub('\\,', '', price_min))
+price_min_new 
+
+price_max_new = as.numeric(gsub('[\\,|\\}]', '', price_max))
+price_max_new
+
+imputed_price = price_max_new+price_min_new/2
+
+data$price[min_price_yes] = imputed_price
+
+write.csv(data, 'C:/Users/ian/Downloads/World Bank/World Bank/Data/walmart_exp_full_PRICES.csv')
+
+length(unique(data$us_item_id))
+
+\end{python}
+
+\section{Code to Create Figure 3}
+\label{appendix G}
+
+\begin{python}
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+data = read_excel("C:/Users/ian/Downloads/World Bank/World Bank/Data/walmart_exp_full.xlsx")
+avg_prices = tapply(data$avg_price, data$date, mean, na.rm=T)
+avg_prices = avg_prices[!is.na(avg_prices)]
+  
+c = NULL
+for (i in 1:length(avg_prices)){
+  c[i] = (avg_prices[i+1] - avg_prices[i])/avg_prices[i]
+}
+c = c[2:(length(c)-1)]
+plot(density(c))
+
+newdata = select(data, product_id, category, date, price, title)
+ordered_dat = newdata[order(newdata$product_id),]
+
+d = density(c)
+
+p = ggplot(data.frame(x=d$x,y=d$y), aes(x=x,y=y))+
+  geom_area(fill='cyan', color='blue', alpha=.4, size=1)+
+  geom_vline(xintercept=-.007, color='orange', size=1, linetype='dashed') +
+  theme_bw() +
+  xlab('Price Change (%)') +
+  ylab('Density') +
+  labs(title='Distribution of Online Price Changes') +
+  theme(plot.title = element_text(size=15, face="bold", 
+                                  margin = margin(10, 0, 10, 0))) +
+  scale_x_continuous(breaks= round(seq(-.25, .45, by=.05),2), labels=c(seq(-25, 45, by=5))) + 
+  theme(text = element_text(size=12))
+  
+png('C:/Users/ian/Downloads/price_dist.png')
+print(p)
+dev.off()
+\end{python}
+
+\section{Code to Create Figure 4}
+\label{appendix H}
+
+\begin{python}
+library(haven)
+library(ggplot2)
+
+data = read_dta('C:/Users/ian/Downloads/Cavallo_ScrapedData_Replication/REPLICATION/RAWDATA/usa2.dta')
+data$date = as.Date(data$date)
+trimmed_data = data[data$date >= "2008-05-01" & data$date <= "2008-05-14",]
+avg_prices = tapply(trimmed_data$price, trimmed_data$date, mean, na.rm=T)
+
+c = NULL
+for (i in 1:length(avg_prices)){
+  c[i] = (avg_prices[i+1] - avg_prices[i])/avg_prices[i]
+}
+c = c[2:(length(c)-1)]
+
+d = density(c)
+
+p = ggplot(data.frame(x=d$x,y=d$y), aes(x=x,y=y))+
+  geom_area(fill='cyan', color='blue', alpha=.4, size=1)+
+  geom_vline(xintercept=mean(d$x), color='orange', size=1, linetype='dashed') +
+  theme_bw() +
+  xlab('Price Change (%)') +
+  ylab('Density') +
+  labs(title='Distribution of Online Price Changes') +
+  theme(plot.title = element_text(size=15, face="bold", 
+                                  margin = margin(10, 0, 10, 0))) +
+  scale_x_continuous(breaks = c(seq(-.01, .01, by=.005)), labels=c(seq(-1, 1, by=.5))) + 
+  theme(text = element_text(size=12))
+
+png('C:/Users/ian/Downloads/sub_dist.png')
+print(p)
+dev.off()
+\end{python}

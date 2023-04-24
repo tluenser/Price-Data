@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+\usepackage[flushleft]{threeparttable}
+%\documentclass[12pt]{elsarticle}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage[sort]{natbib}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{setspace}
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{isorot}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[print,sectionbreak,panelright]{pdfscreen}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0.0in}
+\setlength\parindent{0pt}
+\usepackage{subcaption}
+\makeatother
+\usepackage{babel}
+\documentclass[english]{article}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\hypersetup{
+    allcolors=egyptianblue,
+    citecolor=egyptianblue,
+    colorlinks= true,
+    linkcolor= egyptianblue,
+    filecolor=egyptianblue,      
+    urlcolor=egyptianblue,
+}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}%
+\usepackage{nccmath}
+\usepackage{mathtools}
+\usepackage{appendix}  
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{orange}{rgb}{1,0.5,0}
+\definecolor{egyptianblue}{rgb}{0.06, 0.2, 0.65}
+
+\newcommand{\PVAS}[1]{\textcolor{red}{#1}}
+\newcommand{\ian}[1]{\textcolor{deepred}{#1}}
+\newcommand{\brendan}[1]{\textcolor{deepgreen}{#1}}
+\newcommand{\trevor}[1]{\textcolor{deepblue}{#1}}
+\newcommand{\russell}[1]{\textcolor{orange}{#1}}
+
+
+
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
+
+
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+\begin{document}
+
+
+
+\title{GSE 580 Distribution of Price Changes: API Data
+
+\author{Brendan Hoang 
+\thanks{Cal Poly, Graduate Student, Department of Economics (email:
+\tt{bhoang09@calpoly.edu})}
+\and Ian Donovan
+\thanks{Cal Poly, Graduate Student, Department of Economics (email:
+\tt{idonovan@calpoly.edu})}
+\and Trevor Luenser
+\thanks{Cal Poly, Graduate Student, Department of Economics (email:
+\tt{tluenser@calpoly.edu})}
+\and Russell McIntosh
+\thanks{Cal Poly, Graduate Student, Department of Economics (email:
+\tt{rumcinto@calpoly.edu})}
+}}
+
+
+\maketitle
+
+
+\begin{abstract}
+%We use daily prices collected from online retailers in five countries
+%to study the impact of measurement bias on three common price stickiness
+%statistics. Relative to previous results, I find that online prices have longer
+%durations, with fewer price changes close to 0, and hazard functions that
+%initially increase over time. I show that time-averaging and imputed prices
+%in scanner and CPI data can fully explain the differences with the literature.
+%I then report summary statistics for the duration and size of price changes
+%using scraped data collected from 181 retailers in 31 countries.
+
+\trevor{Historically, it has been difficult to capture the degree and frequency that prices change.  Traditional methods, such as the use of scanner data, are presented on a weekly or quarterly basis and are often burdened by high costs in both time and wages.  In this paper we gather prices from a major online retailer for thousands of items daily to analyze price stickiness (the change in price, per item, over time) with a much higher degree of frequency.  We measure price stickiness by matching items over time and measuring the difference in price of the item from the period immediately prior.  Overall, our results indicate that online prices can be used to accurately measure prices over time, and that the distribution of price changes becomes more bi-modal over time, confirming the online price results in \citep{Cavallo2015}.
+}
+
+\end{abstract}
+
+
+\noindent JEL: C9 \\
+\noindent Keywords: GSE580, PPP, Purchasing Power Parity, Web-Scraping, Price Data.
+\thispagestyle{empty}
+
+\input{1-intro.tex}
+\input{2-data.tex}
+\input{3-solution.tex}
+\input{4-analysis.tex}
+\input{5-conclusion.tex}
+
+\newpage
+\bibliographystyle{chicagoa}
+\bibliography{referencias}
+\afterpage{\clearpage}
+\input{appendix.tex}
+\input{figures.tex}
+\input{tables}
+
+
+\end{document}

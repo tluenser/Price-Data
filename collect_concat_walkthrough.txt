@@ -1,0 +1,50 @@
+*************************************************************
+* Data Collection and Concatenation Walkthrough
+*************************************************************
+
+********* Walmart API - abbreviated *********
+
+# Set a list of queries for the search-bar to run through
+# Set an empty dataframe to store observations
+# Begin for-loop
+    # Set an empty temporary dataframe to store observations
+    # Set parameters for accessing the Google SerpAPI platform, running through each query in the queries list
+    # Run the API, for each query store the JSON results in a dictionary and keep the observation-section of the results
+    # Set the temporary dataframe to be the results from the API queries, and add today's date as a column vector
+    # Add the conditional statement to fill the original dataframe if empty, or append if there are already observations contained in the dataframe.
+# Set today's date and save the dataframe as a CSV and XLSX file using today's date.
+
+********* Google API *********
+
+# Set a list of locations for the Google to specify when seeking results. This list causes the SerpAPI platform to iterate through different location urls
+# Set an empty dataframe to store observations
+# Begin for-loop
+    # Set an empty temporary dataframe to store observations
+    # Set parameters for accessing the Google SerpAPI platform, running through each query and location in their respective lists
+    # Run the API, for each query store the JSON results in a dictionary and keep the observation-section of the results
+    # Set the temporary dataframe to be the results from the API queries, and add today's date as a column vector
+    # Add the conditional statement to fill the original dataframe if empty, or append if there are already observations contained in the dataframe.
+# Set today's date and save the dataframe as a CSV and XLSX file using today's date.
+
+********* Walmart API - extended *********
+
+# Set a list of queries for the search-bar to run through
+# Set a list of pages for the search-bar to run through
+# Set an empty dataframe to store observations
+# Begin for-loop
+    # Set an empty temporary dataframe to store observations
+    # Set parameters for accessing the Google SerpAPI platform, running through each query in the queries list
+    # Run the API, for each query store the JSON results in a dictionary and keep the observation-section of the results
+    # Set the temporary dataframe to be the results from the API queries, and add today's date as a column vector
+    # Add the conditional statement to fill the original dataframe if empty, or append if there are already observations contained in the dataframe.
+# Extract prices from 'primary_offer' dictionary-column
+# Average min/max/offer price to normalize prices
+# Set a category column vector and set categories based on query
+# Set today's date and save the dataframe as a CSV and XLSX file using today's date.
+
+*************************************************************
+* Concatenation
+*************************************************************
+
+# Read csv files as dataframes and merge
+# Set today's date and save the dataframe as a CSV and XLSX file using today's date.
